@@ -1,0 +1,32 @@
+dist: xenial
+os: linux
+language: c
+env:
+  global:
+    - NPROC="$(nproc)"
+    - JOBS=-j$((1+${NPROC}))
+    - SETARCH=
+jobs:
+  include:
+    - name: ppc64le
+      arch: ppc64le
+      compiler: gcc
+    - name: s390x
+      arch: s390x
+      compiler: gcc
+  allow_failures:
+  fast_finish: true
+install: true
+before_script:
+  - dpkg --print-architecture
+  - dpkg --print-foreign-architectures
+  - setarch --list
+  - echo JOBS=${JOBS} TRAVIS_CPU_ARCH=${TRAVIS_CPU_ARCH} SETARCH=${SETARCH} CC=${CC}
+  - $SETARCH uname -a
+  - id
+  - $CC --version
+script:
+  - $SETARCH make $JOBS test
+branches:
+  except:
+    - /^wip\//
