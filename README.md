@@ -1,2 +1,3 @@
 # Native Travis CI MA Test 
-Native Travis CI Multi Arch Test 
+
+Natively built `s390x` and `ppc64le` archs. 
