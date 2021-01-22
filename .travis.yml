@@ -9,7 +9,9 @@ env:
 jobs:
   include:
     - name: ppc64le
-      arch: ppc64le
+      arch: 
+       - ppc64le
+       - cpp
       compiler: gcc
     - name: s390x
       arch: s390x
